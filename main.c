@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
 			perror("sockaddr_set_un_info[a]");
 			exit(-1);
 		}
-		printf("%s omake. Port is %d\n", __func__, sockaddr_get_port(a));
+		printf("%s omake. Port is %d\n", __func__, sockaddr_get_portno(a));
 		sockaddr_get_dst_str(a, tmp_chars, 512);
 		printf("%s: a[%d] is %s\n", __func__, sa.ss_family, tmp_chars);
 		printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
@@ -67,9 +67,9 @@ int main(int argc, char *argv[]){
 		perror("sockaddr_set_any_host[a]");
 		exit (-1);
 	}
-	sockaddr_set_port(a, 4445);
+	sockaddr_set_portno(a, 4445);
 	sockaddr_get_dst_str(a, tmp_chars, 512);
-	printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_port(a));
+	printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_portno(a));
 	printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
 	
 	if(in_map_experiment){
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]){
 			exit(1);
 		}
 		sockaddr_get_dst_str(a, tmp_chars, 512);
-		printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_port(a));
+		printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_portno(a));
 		printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
 		
 		if(sockaddr_storage_4to6((struct sockaddr_storage *)a) < 0){
@@ -93,7 +93,7 @@ int main(int argc, char *argv[]){
 			exit(1);
 		}
 		sockaddr_get_dst_str(a, tmp_chars, 512);
-		printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_port(a));
+		printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_portno(a));
 		printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
 		
 		return 0;
@@ -107,14 +107,14 @@ int main(int argc, char *argv[]){
 		perror("sockaddr_set_any_host[b]");
 		exit (-1);
 	}
-	sockaddr_set_port(b, 4446);
+	sockaddr_set_portno(b, 4446);
 	sockaddr_get_dst_str(b, tmp_chars, 512);
-	printf("%s: b[%d] is %s:%u\n", __func__, sb.ss_family, tmp_chars, sockaddr_get_port(b));
+	printf("%s: b[%d] is %s:%u\n", __func__, sb.ss_family, tmp_chars, sockaddr_get_portno(b));
 	
 	printf("%s: then, comparison\n", __func__);
 	printf("%s: total compare:%d\n", __func__, sockaddr_compare_total(a, b));
 	printf("%s: addr only->%d\n", __func__, sockaddr_compare_addr(a, b));
-	printf("%s: port compare: %d\n", __func__, sockaddr_compare_port(a, b));
+	printf("%s: port compare: %d\n", __func__, sockaddr_compare_portno(a, b));
 	
 	return 0;
 }

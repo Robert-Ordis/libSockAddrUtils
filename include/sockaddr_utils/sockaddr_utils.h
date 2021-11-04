@@ -118,23 +118,23 @@ ssize_t		sockaddr_get_dst_str(struct sockaddr *saddr, char *dst_host, size_t dst
 
 //ポート周り
 /**
- *	\fn				sockaddr_set_port
+ *	\fn				sockaddr_set_portno
  *	\brief			ソケットアドレスのポート番号を変更します
  *	\param [in]	saddr		ソケットアドレス。sockaddr_storage推奨？
  *	\param [in]	port		ポート番号。ホストエンディアンでOK
  *	\return		成功時0。失敗時-1。あとerrno
  *	\remarks		AF_UNIXでは無効だお
  */
-int			sockaddr_set_port(struct sockaddr *saddr, uint16_t port);
+int			sockaddr_set_portno(struct sockaddr *saddr, uint16_t port);
 
 /**
- *	\fn				sockaddr_get_port
+ *	\fn				sockaddr_get_portno
  *	\brief			ソケットアドレスのポート番号を取得します
  *	\param [in]	saddr		ソケットアドレス。sockaddr_storage推奨？
  *	\return		ポート番号。ただしAF_INET系列じゃない場合は0のうえ、errno。
  *	\remarks		AF_UNIXでは無効だお
  */
-uint16_t	sockaddr_get_port(struct sockaddr *saddr);
+uint16_t	sockaddr_get_portno(struct sockaddr *saddr);
 
 //その他
 /**
@@ -169,14 +169,14 @@ int			sockaddr_compare_total(struct sockaddr *saddr_a, struct sockaddr *saddr_b)
 int			sockaddr_compare_addr(struct sockaddr *saddr_a, struct sockaddr *saddr_b);
 
 /**
- *	\fn				sockaddr_compare_port
+ *	\fn				sockaddr_compare_portno
  *	\brief			ソケットアドレスの、ポート番号の比較
  *	\param [in]	saddr_a	比較A
  *	\param [in]	saddr_b	比較B
  *	\return		saddr_a - saddr_bを基とした比較結果
  *	\remarks		INET系列ならv4 vs v6の比較も一応可能
  */
-int			sockaddr_compare_port(struct sockaddr *saddr_a, struct sockaddr *saddr_b);
+int			sockaddr_compare_portno(struct sockaddr *saddr_a, struct sockaddr *saddr_b);
 
 //射影関連
 

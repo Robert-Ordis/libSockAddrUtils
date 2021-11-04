@@ -65,7 +65,7 @@ static int	sockaddr_set_host_(struct sockaddr *saddr, char *host, struct addrinf
 	}
 	
 	ret = 0;
-	uint16_t ex_port = sockaddr_get_port(saddr);
+	uint16_t ex_port = sockaddr_get_portno(saddr);
 	//struct sockaddr *saddr_res = res_addrs->ai_addr;
 	switch(res_addrs->ai_family){
 	case AF_INET:
@@ -79,7 +79,7 @@ static int	sockaddr_set_host_(struct sockaddr *saddr, char *host, struct addrinf
 		break;
 	}
 	
-	sockaddr_set_port(saddr, ex_port);
+	sockaddr_set_portno(saddr, ex_port);
 	freeaddrinfo(res_addrs);
 	return ret;
 }
@@ -227,7 +227,7 @@ ssize_t		sockaddr_get_dst_str(struct sockaddr *saddr, char *dst_host, size_t dst
 }
 
 //ポート周り
-int			sockaddr_set_port(struct sockaddr *saddr, uint16_t port){
+int			sockaddr_set_portno(struct sockaddr *saddr, uint16_t port){
 	switch(saddr->sa_family){
 	case AF_INET:
 		return sockaddr_set_v4_port_((struct sockaddr_in*) saddr, port);
@@ -239,7 +239,7 @@ int			sockaddr_set_port(struct sockaddr *saddr, uint16_t port){
 	}
 }
 
-uint16_t	sockaddr_get_port(struct sockaddr *saddr){
+uint16_t	sockaddr_get_portno(struct sockaddr *saddr){
 	switch(saddr->sa_family){
 	case AF_INET:
 		return ntohs(((struct sockaddr_in *)saddr)->sin_port);
@@ -270,7 +270,7 @@ int			sockaddr_compare_total(struct sockaddr *saddr_a, struct sockaddr *saddr_b)
 	
 	int ret;
 	if((ret = sockaddr_compare_addr(saddr_a, saddr_b)) == 0){
-		return sockaddr_compare_port(saddr_a, saddr_b);
+		return sockaddr_compare_portno(saddr_a, saddr_b);
 	}
 	
 	return ret;
@@ -307,9 +307,9 @@ int			sockaddr_compare_addr(struct sockaddr *saddr_a, struct sockaddr *saddr_b){
 	}
 	return memcmp(a, b, len);
 }
-int			sockaddr_compare_port(struct sockaddr *saddr_a, struct sockaddr *saddr_b){
-	int a = (int)sockaddr_get_port(saddr_a);
-	int b = (int)sockaddr_get_port(saddr_b);
+int			sockaddr_compare_portno(struct sockaddr *saddr_a, struct sockaddr *saddr_b){
+	int a = (int)sockaddr_get_portno(saddr_a);
+	int b = (int)sockaddr_get_portno(saddr_b);
 	return a - b;
 }
 
