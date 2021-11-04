@@ -136,6 +136,16 @@ int			sockaddr_set_port(struct sockaddr *saddr, uint16_t port);
  */
 uint16_t	sockaddr_get_port(struct sockaddr *saddr);
 
+//その他
+/**
+ *	\fn				sockaddr_get_size
+ *	\brief			ソケットアドレスの正しい構造体サイズを取得する
+ *	\param [in]	saddr		ソケットアドレス。sockaddr_storage推奨？
+ *	\return		bind/connectに渡す構造体のサイズ。
+ *	\remarks		わからないときは素のsockaddrの範囲だけ返す
+ */
+size_t		sockaddr_get_size(struct sockaddr *saddr);
+
 //比較
 /**
  *	\fn				sockaddr_compare_total

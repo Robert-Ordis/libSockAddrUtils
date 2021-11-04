@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
 		printf("%s omake. Port is %d\n", __func__, sockaddr_get_port(a));
 		sockaddr_get_dst_str(a, tmp_chars, 512);
 		printf("%s: a[%d] is %s\n", __func__, sa.ss_family, tmp_chars);
-		
+		printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
 		if(input_addr_b == NULL){
 			return 0;
 		}
@@ -70,6 +70,7 @@ int main(int argc, char *argv[]){
 	sockaddr_set_port(a, 4445);
 	sockaddr_get_dst_str(a, tmp_chars, 512);
 	printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_port(a));
+	printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
 	
 	if(in_map_experiment){
 		printf("%s: is_v4(0) is %d\n", __func__, sockaddr_is_ipv4(a, 0));
@@ -85,6 +86,7 @@ int main(int argc, char *argv[]){
 		}
 		sockaddr_get_dst_str(a, tmp_chars, 512);
 		printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_port(a));
+		printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
 		
 		if(sockaddr_storage_4to6((struct sockaddr_storage *)a) < 0){
 			perror("sockaddr_storage_4to6");
@@ -92,6 +94,7 @@ int main(int argc, char *argv[]){
 		}
 		sockaddr_get_dst_str(a, tmp_chars, 512);
 		printf("%s: a[%d] is %s:%u\n", __func__, sa.ss_family, tmp_chars, sockaddr_get_port(a));
+		printf("%s: sa_len->%zu\n", __func__, sockaddr_get_size(a));
 		
 		return 0;
 	}

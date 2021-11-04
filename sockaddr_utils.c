@@ -226,7 +226,6 @@ ssize_t		sockaddr_get_dst_str(struct sockaddr *saddr, char *dst_host, size_t dst
 	return (ssize_t)strlen(dst_host);
 }
 
-
 //ポート周り
 int			sockaddr_set_port(struct sockaddr *saddr, uint16_t port){
 	switch(saddr->sa_family){
@@ -249,6 +248,20 @@ uint16_t	sockaddr_get_port(struct sockaddr *saddr){
 	default:
 		errno = EAFNOSUPPORT;
 		return 0;
+	}
+}
+
+//その他
+size_t		sockaddr_get_size(struct sockaddr *saddr){
+	switch(saddr->sa_family){
+	case AF_INET:
+		return sizeof(struct sockaddr_in);
+	case AF_INET6:
+		return sizeof(struct sockaddr_in6);
+	case AF_UNIX:
+		return sizeof(struct sockaddr_un);
+	default:
+		return sizeof(struct sockaddr);
 	}
 }
 

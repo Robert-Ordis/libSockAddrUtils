@@ -109,11 +109,7 @@ $(OBJ_DIR)/%.o : %.c
 	mkdir -p $(dir $(DEP_DIR)/$(<:%.c=%.depend))
 	$(CC) -MM $< -MT $@ > $(DEP_DIR)/$(<:%.c=%.depend)
 	mkdir -p $(dir $@)
-ifneq ($(strip $(TARGET_SLIB)),)
 	$(CC) -c $< -o $@ -fPIC
-else
-	$(CC) -c $< -o $@
-endif
 
 
 #普通のビルド。
