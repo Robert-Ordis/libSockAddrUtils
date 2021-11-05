@@ -57,7 +57,7 @@ DEP_PROGRAM := $(SRC_PROGRAM:%.c=$(DEP_DIR)/%.depend)
 
 #### FIXED PATH INFO ####
 INCDIR_MYSELF	=./include/
-INSTALL_DIR		=./install/
+INSTALL_DIR		=./install
 
 ####include .mk files as config####
 include $(DEF_MKFILES) $(EXT_MKFILES)
@@ -81,10 +81,11 @@ $(TARGET_ALIB)	: $(OBJ_LIBPART)
 ifneq ($(strip $(TARGET_SLIB)),)
 	$(CC) -shared -o $(TARGET_SLIB) $(OBJ_LIBPART)
 endif
-	install -C -D $(TARGET_ALIB) $(INSTALL_DIR)/lib/$(TARGET_ALIB)
-	cp $(INCDIR_MYSELF) $(INSTALL_DIR) -R -f
+	mkdir -p $(INSTALL_DIR)/lib/
+	cp -R -f -p $(TARGET_ALIB) $(INSTALL_DIR)/lib/
+	cp -R -f -p $(INCDIR_MYSELF) $(INSTALL_DIR)
 ifneq ($(strip $(TARGET_SLIB)),)
-	install -C -D $(TARGET_SLIB) $(INSTALL_DIR)/lib/$(TARGET_SLIB)
+	cp -R -f -p $(TARGET_SLIB) $(INSTALL_DIR)/lib/
 endif
 
 #テスタービルド
@@ -96,7 +97,7 @@ endif
 #インストール。外部で指定したインストール先があるなら、そこに突っ込む。
 install:	FORCE
 ifneq ($(strip $(INSTALL_EXT)),)
-	cp $(INSTALL_DIR)/* $(INSTALL_EXT)/ -R -f
+	cp -R -f -p $(INSTALL_DIR)/* $(INSTALL_EXT)/
 endif
 
 #みんないなくなる。

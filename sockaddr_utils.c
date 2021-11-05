@@ -5,6 +5,8 @@
 #include <errno.h>
 #include <arpa/inet.h>
 
+#include <string.h>
+#include <stdlib.h>
 
 const static uint8_t	bin_addr_map_head[12] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF};
 const static struct sockaddr_un sample_un;
